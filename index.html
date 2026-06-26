@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Safety Dashboard</title>
 
-  <!-- Leaflet CSS — gives the map its look -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
 
   <style>
-    /* Reset default browser spacing */
     * {
       margin: 0;
       padding: 0;
@@ -28,19 +26,15 @@
 
     /* Top bar */
     header {
-      background: #1a1a2e;
+      background: #9393d8;
       color: white;
       padding: 12px 20px;
       font-size: 18px;
       font-weight: 500;
     }
-
-    /* TODO: Give the map div a height so it actually shows up.
-       Right now #map has no height, so Leaflet renders nothing.
-       Try: height: calc(100vh - 50px);  or just height: 100%; */
     #map {
       width: 100%;
-      /* YOUR CODE HERE */
+      flex: 1;
     }
   </style>
 </head>
@@ -58,76 +52,25 @@
 
   <script>
 
-    // -------------------------------------------------------
-    // STEP 1: Pick a city to center the map on.
-    //
-    // Coordinates are [latitude, longitude].
-    // You can Google "[city name] lat long" to find them.
-    // Example — Boston: [42.3601, -71.0589]
-    //
-    // TODO: Replace the zeros with real coordinates.
-    // -------------------------------------------------------
+    // lat and long of lexington, ky 
     const cityCenter = [
-      0, // latitude  — YOUR CODE HERE
-      0  // longitude — YOUR CODE HERE
-    ];
+  38.047989,
+  -84.501640
+];
+    
+    const map = L.map('map').setView(cityCenter, 14);
 
 
-    // -------------------------------------------------------
-    // STEP 2: Initialize the map.
-    //
-    // L.map('map') tells Leaflet to draw inside the <div id="map">.
-    // setView(coordinates, zoomLevel) sets where the map starts.
-    //
-    // Zoom levels: 10 = city view, 13 = neighborhood, 16 = street
-    //
-    // TODO: Replace the 0 below with a zoom level that feels right.
-    // -------------------------------------------------------
-    const map = L.map('map').setView(cityCenter, 0 /* YOUR ZOOM LEVEL HERE */);
-
-
-    // -------------------------------------------------------
-    // STEP 3: Add map tiles (the actual visual map imagery).
-    //
-    // OpenStreetMap is free and needs no API key.
-    // L.tileLayer() takes a URL template and options.
-    //
-    // This part is already filled in for you — just read it!
-    // {z}/{x}/{y} are placeholders Leaflet fills in automatically.
-    // maxZoom controls how far the user can zoom in.
-    // attribution gives credit to OpenStreetMap (required by their license).
-    // -------------------------------------------------------
+    //add the map tiles 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
 
-    // -------------------------------------------------------
-    // STEP 4 (bonus): Add a single marker to the map.
-    //
-    // L.marker([lat, lng]) places a pin at those coordinates.
-    // .bindPopup('text') adds a clickable popup to the pin.
-    // .addTo(map) actually puts it on the map.
-    //
-    // TODO: Place a marker on your city center.
-    //       Use the cityCenter variable you already defined!
-    // -------------------------------------------------------
-
-    // YOUR CODE HERE
-
-
-    // -------------------------------------------------------
-    // STEP 5 (bonus): Log the coordinates when the user clicks
-    // anywhere on the map. Useful for debugging later!
-    //
-    // map.on('click', function(e) { ... }) listens for click events.
-    // e.latlng gives you the lat/lng of where the user clicked.
-    //
-    // TODO: Fill in the console.log so it prints e.latlng.
-    // -------------------------------------------------------
+    L.marker(cityCenter).bindPopup('Lexington, KY').addTo(map)
     map.on('click', function(e) {
-      console.log( /* YOUR CODE HERE */ );
+      console.log( e.latlng );
     });
 
   </script>
